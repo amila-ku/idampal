@@ -8,15 +8,14 @@ import (
 	"github.com/labstack/echo/middleware"
 )
 
-type (
-	property struct {
+type property struct {
 		ID   int    `json:"id"`
 		Name string `json:"name"`
 		Seller string `json:"seller"`
 		Location string `json:"location"`
 		Url 	string `json: "url"`
-	}
-)
+}
+
 
 var (
 	properties = map[int]*property{}
