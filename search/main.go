@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strings"
 	"github.com/gocolly/colly"
 )
 
@@ -30,12 +29,13 @@ func main() {
 	c.Visit("https://ikman.lk/en/")
 
 	// Create another collector to scrape course details
-	detailCollector := c.Clone()
+	//detailCollector := c.Clone()
 
 	// On every a HTML element which has name attribute call callback
 	c.OnHTML(`a[name]`, func(e *colly.HTMLElement) {
 		// Activate detailCollector if the link contains "coursera.org/learn"
 		propURL := e.Request.AbsoluteURL(e.Attr("href"))
+		fmt.Println(propURL)
 
 	})
 }
