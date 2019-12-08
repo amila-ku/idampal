@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 )
@@ -8,6 +9,20 @@ import (
 
 
 func main() {
+
+	newsapikey := "8ec886c4db984880889d4a9d8b79b942"
+	searchqyery := "top-headlines"
+
+	s := NewSearch(newsapikey,searchqyery)
+
+	s.GetNewsArticles()
+
+	fmt.Println(s.Results)
+
+	fmt.Println("starting")
+
+
+	
 	e := echo.New()
 
 	// Middleware
@@ -23,4 +38,5 @@ func main() {
 
 	// Start server
 	e.Logger.Fatal(e.Start(":1323"))
+
 }
