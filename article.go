@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/labstack/echo"
+	"github.com/google/uuid"
 )
 
 // Source defines the structure of news source
@@ -15,7 +16,7 @@ type Source struct {
 }
 // Article defines the news article structure
 type Article struct {
-	ID   int    `json:"id"`
+	ID   uuid.UUID    `json:"id"`
 	Source      Source    `json:"source"`
 	Author      string    `json:"author"`
 	Title       string    `json:"title"`
@@ -26,11 +27,16 @@ type Article struct {
 	Location	string	  `json:"location"`
 }
 
+// ArticleList contains multiple list of articles
+type ArticleList struct {
+	Articles []Article
+}
 
-var (
-	articles = map[int]*Article{}
-	seq   = 1
-)
+
+// var (
+// 	articles = map[int]*Article{}
+// 	seq   = 1
+// )
 
 //----------
 // Handlers
