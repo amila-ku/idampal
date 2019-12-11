@@ -26,7 +26,7 @@ type Search struct {
 type NewsAPIResponce struct {
 	Status       string    `json:"status"`
 	TotalResults int       `json:"totalResults"`
-	NewsArticles []Article  `json: "articles"`	
+	NewsArticles ArticleList  `json: "articles"`	
 }
 
 // NewSearch intiates a search
