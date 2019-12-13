@@ -34,7 +34,7 @@ func main() {
 	e.GET("/allarticles", getAllArticles)
 	e.GET("/article/:id", getArticle)
 	e.PUT("/article/:id", updateArticle)
-	e.DELETE("/article/:id", deleteArticle)
+	//e.DELETE("/article/:id", deleteArticle)
 
 	// Start server
 	e.Logger.Fatal(e.Start(":1323"))

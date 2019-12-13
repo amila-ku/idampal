@@ -29,10 +29,10 @@ type Article struct {
 
 // ArticleList contains multiple list of articles
 type ArticleList struct {
-	Articles []Article
+	Articles []Article `json:"articles"`
 }
 
-
+var art = ArticleList{}
 // var (
 // 	articles = map[int]*Article{}
 // 	seq   = 1
@@ -45,24 +45,28 @@ type ArticleList struct {
 func createArticle(c echo.Context) error {
 	defer c.Request().Body.Close()
 
-	u := &Article{
-		ID: seq,
+	u := Article{
+		ID: uuid.New(),
 	}
 	if err := c.Bind(u); err != nil {
 		return err
 	}
-	articles[u.ID] = u
-	seq++
+
+    art.Articles = append(art.Articles, u)
 	return c.JSON(http.StatusCreated, u)
 }
 
 func getArticle(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
-	return c.JSON(http.StatusOK, articles[id])
+	return c.JSON(http.StatusOK, art.Articles[id])
 }
 
 func getAllArticles(c echo.Context) error {
-	return c.JSON(http.StatusOK, articles)
+	s := NewSearch("xx", "bitcoin")
+	s.GetNewsArticles()
+	art = s.Results.NewsArticles
+
+	return c.JSON(http.StatusOK, art)
 }
 
 func updateArticle(c echo.Context) error {
@@ -71,12 +75,20 @@ func updateArticle(c echo.Context) error {
 		return err
 	}
 	id, _ := strconv.Atoi(c.Param("id"))
-	articles[id].Title = u.Title
-	return c.JSON(http.StatusOK, articles[id])
+	art.Articles[id].Title = u.Title
+	return c.JSON(http.StatusOK, art.Articles[id])
 }
 
-func deleteArticle(c echo.Context) error {
-	id, _ := strconv.Atoi(c.Param("id"))
-	delete(articles, id)
-	return c.NoContent(http.StatusNoContent)
-}
+// func deleteArticle(c echo.Context) error {
+// 	id, _ := strconv.Atoi(c.Param("id"))
+// 	delete(art.Articles, id)
+	
+// 	//loop through all our items
+// 	for index, item := range ItemList {
+// 		// delete if item id matches
+// 		if item.ID == id {
+// 			ItemList = append(ItemList[:index], ItemList[index+1:]...)
+// 		}
+// 	}
+// 	return c.NoContent(http.StatusNoContent)
+// }
