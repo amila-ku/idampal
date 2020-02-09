@@ -1,4 +1,4 @@
-package main
+package articles
 
 import (
 	"net/http"
@@ -26,6 +26,8 @@ type Article struct {
 	Content     string    `json:"content"`
 	Location	string	  `json:"location"`
 }
+
+
 
 // ArticleList contains multiple list of articles
 type ArticleList struct {
@@ -62,11 +64,14 @@ func getArticle(c echo.Context) error {
 }
 
 func getAllArticles(c echo.Context) error {
-	s := NewSearch("xx", "bitcoin")
-	s.GetNewsArticles()
-	art = s.Results.NewsArticles
+	s := NewSearch("8ec886c4db984880889d4a9d8b79b942", "bitcoin")
+	res, err := s.GetNewsArticles()
+	if err != nil {
+		panic(err)
+	}
+	//art.Articles = res.Results.Articles
 
-	return c.JSON(http.StatusOK, art)
+	return c.JSON(http.StatusOK, res.Results.Articles)
 }
 
 func updateArticle(c echo.Context) error {
