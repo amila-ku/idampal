@@ -15,6 +15,8 @@ require (
 	github.com/kennygrant/sanitize v1.2.4 // indirect
 	github.com/labstack/echo v3.3.10+incompatible
 	github.com/labstack/gommon v0.3.0
+	github.com/machinebox/graphql v0.2.2
+	github.com/pkg/errors v0.8.1
 	github.com/saintfish/chardet v0.0.0-20120816061221-3af4cd4741ca // indirect
 	github.com/temoto/robotstxt v1.1.1 // indirect
 	github.com/valyala/fasttemplate v1.1.0 // indirect
