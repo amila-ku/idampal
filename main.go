@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
+	"github.com:amila-ku/newspal/pkg"
 )
 
 
@@ -35,6 +36,9 @@ func main() {
 	e.GET("/article/:id", getArticle)
 	e.PUT("/article/:id", updateArticle)
 	//e.DELETE("/article/:id", deleteArticle)
+
+	// Static
+	//e.Static("/assets", "assets")
 
 	// Start server
 	e.Logger.Fatal(e.Start(":1323"))
