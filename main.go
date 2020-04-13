@@ -4,24 +4,12 @@ import (
 	"fmt"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
-	"github.com:amila-ku/newspal/pkg"
+	"github.com:amila-ku/newspal/pkg/handler"
 )
 
 
 
 func main() {
-
-	newsapikey := "8ec886c4db984880889d4a9d8b79b942"
-	searchqyery := "top-headlines"
-
-	s := NewSearch(newsapikey,searchqyery)
-
-	s.GetNewsArticles()
-
-	fmt.Println(s.Results)
-
-	fmt.Println("starting")
-
 
 	
 	e := echo.New()
@@ -31,10 +19,10 @@ func main() {
 	e.Use(middleware.Recover())
 
 	// Routes
-	e.POST("/article", createArticle)
-	e.GET("/allarticles", getAllArticles)
-	e.GET("/article/:id", getArticle)
-	e.PUT("/article/:id", updateArticle)
+	// e.POST("/article", createArticle)
+	e.GET("/allarticles", GetAllArticles)
+	// e.GET("/article/:id", getArticle)
+	// e.PUT("/article/:id", updateArticle)
 	//e.DELETE("/article/:id", deleteArticle)
 
 	// Static

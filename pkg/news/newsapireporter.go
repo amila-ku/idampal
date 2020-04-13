@@ -1,4 +1,4 @@
-package reporter
+package news
 
 import (
 	//"io/ioutil"
