@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
-	"github.com:amila-ku/newspal/pkg/handler"
+	"github.com/amila-ku/newspal/pkg/handler"
 )
 
 

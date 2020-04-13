@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"github.com:amila-ku/newspal/pkg/news"
+	"github.com/amila-ku/newspal/pkg/news"
 	"github.com/labstack/gommon/log"
 )
 
