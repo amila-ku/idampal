@@ -1,4 +1,4 @@
-module github.com:amila-ku/newspal
+module github.com/amila-ku/newspal
 
 go 1.12
 
