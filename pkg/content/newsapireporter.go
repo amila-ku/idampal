@@ -36,8 +36,8 @@ type NewsAPIArticle struct {
 }
 
 // New creates a new news article
-func New(s Source, author title string ) NewsAPIArticle {
-	return NewsAPIArticle{
+func New(s Source, author, title string) NewsAPIArticle {
+	return NewsAPIArticle {
 		Source: s,
 		Author: author,
 		Title: title,

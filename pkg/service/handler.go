@@ -2,7 +2,7 @@ package handler
 
 import (
 	"net/http"
-	"github.com/amila-ku/newspal/pkg/news"
+	news "github.com/amila-ku/newspal/pkg/content"
 	"github.com/labstack/gommon/log"
 	"github.com/labstack/echo"
 )
@@ -21,14 +21,14 @@ import (
 // 	return c.JSON(http.StatusCreated, u)
 // }
 
-func mapArticleListAndSearch(art *news.ArticleList, s *news.Search) {
-	res, err := news.GetNewsArticles()
-	if err != nil {
-		log.Error("Failed to fetch articles")
-	}
-	art.Articles = res.Results.Articles
-	art.Category = s.SearchKey
-}
+// func mapArticleListAndSearch(art *c.ArticleList, s *c.Search) {
+// 	res, err := c.GetNewsArticles()
+// 	if err != nil {
+// 		log.Error("Failed to fetch articles")
+// 	}
+// 	art.Articles = res.Results.Articles
+// 	art.Category = s.SearchKey
+// }
 
 // func GetArticle(c echo.Context) error {
 // 	id, _ := strconv.Atoi(c.Param("id"))
@@ -38,17 +38,17 @@ func mapArticleListAndSearch(art *news.ArticleList, s *news.Search) {
 // GetAllArticles returns l
 func GetAllArticles(c echo.Context) error {
 	s := news.NewSearch("8ec886c4db984880889d4a9d8b79b942", "bitcoin")
-	a := news.ArticleList{}
 
 	res, err := s.GetNewsArticles()
 	if err != nil {
 		log.Error("Failed to fetch articles")
 	}
 
-	mapArticleListAndSearch(a, s)
+	n := news.NewArticleList("coinnews", "crypto", res)
+
 	//art.Articles = res.Results.Articles
 
-	return c.JSON(http.StatusOK, a.Articles)
+	return c.JSON(http.StatusOK, n)
 }
 
 // func UpdateArticle(c echo.Context) error {
