@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
-	"github.com/amila-ku/newspal/pkg/handler"
+	"github.com/amila-ku/newspal/pkg/service"
 )
 
 
@@ -20,7 +20,7 @@ func main() {
 
 	// Routes
 	// e.POST("/article", createArticle)
-	e.GET("/allarticles", GetAllArticles)
+	e.GET("/allarticles", service.GetAllArticles())
 	// e.GET("/article/:id", getArticle)
 	// e.PUT("/article/:id", updateArticle)
 	//e.DELETE("/article/:id", deleteArticle)

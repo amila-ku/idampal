@@ -1,8 +1,10 @@
 package handler
 
 import (
+	"net/http"
 	"github.com/amila-ku/newspal/pkg/news"
 	"github.com/labstack/gommon/log"
+	"github.com/labstack/echo"
 )
 
 // func CreateArticle(c echo.Context) error {
@@ -19,8 +21,8 @@ import (
 // 	return c.JSON(http.StatusCreated, u)
 // }
 
-func mapArticleListAndSearch(art *ArticleList, s *Search) {
-	res, err := s.GetNewsArticles()
+func mapArticleListAndSearch(art *news.ArticleList, s *news.Search) {
+	res, err := news.GetNewsArticles()
 	if err != nil {
 		log.Error("Failed to fetch articles")
 	}
@@ -35,8 +37,13 @@ func mapArticleListAndSearch(art *ArticleList, s *Search) {
 
 // GetAllArticles returns l
 func GetAllArticles(c echo.Context) error {
-	s := NewSearch("8ec886c4db984880889d4a9d8b79b942", "bitcoin")
-	a := ArticleList{}
+	s := news.NewSearch("8ec886c4db984880889d4a9d8b79b942", "bitcoin")
+	a := news.ArticleList{}
+
+	res, err := s.GetNewsArticles()
+	if err != nil {
+		log.Error("Failed to fetch articles")
+	}
 
 	mapArticleListAndSearch(a, s)
 	//art.Articles = res.Results.Articles

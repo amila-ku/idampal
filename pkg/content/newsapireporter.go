@@ -1,4 +1,4 @@
-package news
+package content
 
 import (
 	//"io/ioutil"
@@ -12,8 +12,41 @@ import (
 	"time"
 	//"os"
 	//"github.com/labstack/gommon/log"
+	"github.com/google/uuid"
 
 )
+
+// Source defines the structure of news source
+type Source struct {
+	ID   interface{} `json:"id"`
+	Name string      `json:"name"`
+}
+
+// NewsAPIArticle defines the news article structure
+type NewsAPIArticle struct {
+	ID   uuid.UUID    `json:"id"`
+	Source      Source    `json:"source"`
+	Author      string    `json:"author"`
+	Title       string    `json:"title"`
+	URL         string    `json:"url"`
+	URLToImage  string    `json:"urlToImage"`
+	PublishedAt time.Time `json:"publishedAt"`
+	Content     string    `json:"content"`
+	Location	string	  `json:"location"`
+}
+
+// New creates a new news article
+func New(s Source, author title string ) NewsAPIArticle {
+	return NewsAPIArticle{
+		Source: s,
+		Author: author,
+		Title: title,
+	}
+}
+
+func (a *NewsAPIArticle) getTitle() string {
+	return a.Title
+}
 
 // Search defines user search 
 type Search struct {
@@ -36,19 +69,7 @@ type Search struct {
 type NewsAPIResponce struct {
 	Status       string `json:"status"`
 	TotalResults int    `json:"totalResults"`
-	Articles     []struct {
-		Source struct {
-			ID   interface{} `json:"id"`
-			Name string      `json:"name"`
-		} `json:"source"`
-		Author      string    `json:"author"`
-		Title       string    `json:"title"`
-		Description string    `json:"description"`
-		URL         string    `json:"url"`
-		URLToImage  string    `json:"urlToImage"`
-		PublishedAt time.Time `json:"publishedAt"`
-		Content     string    `json:"content"`
-	} `json:"articles"`
+	Articles     []NewsAPIArticle `json:"articles"`
 }
 
 // NewSearch intiates a search
@@ -64,7 +85,7 @@ func NewSearch(apiKey string, sKey string) Search {
 }
 
 // GetNewsArticles gets news from news api
-func (s Search) GetNewsArticles() (Search, error) {
+func (s Search) GetNewsArticles() ([]NewsAPIArticle, error) {
 
 	endpoint := fmt.Sprintf("https://newsapi.org/v2/everything?q=%s&pageSize=%d&page=%d&apiKey=%s&sortBy=publishedAt&language=en", url.QueryEscape(s.SearchKey), s.PageSize, s.NextPage, s.ApiKey)
 	//fmt.Println(endpoint)
@@ -107,5 +128,5 @@ func (s Search) GetNewsArticles() (Search, error) {
 
 	s.TotalPages = int(math.Ceil(float64(s.Results.TotalResults / s.PageSize)))
 	
-	return s, err
+	return s.Results.Articles, err
 }

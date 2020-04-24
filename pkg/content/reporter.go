@@ -1,4 +1,4 @@
-package news
+package content
 
 // Reporter interface
 type Reporter interface {

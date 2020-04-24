@@ -1,4 +1,4 @@
-package news
+package content
 
 import (
 	"strconv"
