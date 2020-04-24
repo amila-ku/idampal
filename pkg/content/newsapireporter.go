@@ -44,7 +44,7 @@ func New(s Source, author, title string) NewsAPIArticle {
 	}
 }
 
-func (a *NewsAPIArticle) getTitle() string {
+func (a NewsAPIArticle) getTitle() string {
 	return a.Title
 }
 

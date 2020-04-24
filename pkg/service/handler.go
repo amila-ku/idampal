@@ -1,4 +1,4 @@
-package handler
+package service
 
 import (
 	"net/http"
@@ -44,11 +44,11 @@ func GetAllArticles(c echo.Context) error {
 		log.Error("Failed to fetch articles")
 	}
 
-	n := news.NewArticleList("coinnews", "crypto", res)
+	//n := news.NewArticleList("coinnews", "crypto", res)
 
 	//art.Articles = res.Results.Articles
 
-	return c.JSON(http.StatusOK, n)
+	return c.JSON(http.StatusOK, res)
 }
 
 // func UpdateArticle(c echo.Context) error {
