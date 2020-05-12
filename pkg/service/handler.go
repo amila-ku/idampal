@@ -7,70 +7,87 @@ import (
 	"github.com/labstack/echo"
 )
 
-// func CreateArticle(c echo.Context) error {
-// 	defer c.Request().Body.Close()
+// var newsapitoken  = os.Getenv("NEWS_API_TOKEN")
 
-// 	u := Article{
-// 		ID: uuid.New(),
-// 	}
-// 	if err := c.Bind(u); err != nil {
-// 		return err
-// 	}
+// Handler contains new endpoint content
+type Handler struct {
+	search news.Search
+	twitterSearch news.TwitterSearch
+}
 
-//     art.Articles = append(art.Articles, u)
-// 	return c.JSON(http.StatusCreated, u)
-// }
+// NewHandler returns responce handlers
+func NewHandler(newsapitoken string) Handler {
+	return Handler {
+		search: news.NewSearch(newsapitoken, "business"),
+		twitterSearch: news.NewTwitterSearch("#business"),
+	}
 
-// func mapArticleListAndSearch(art *c.ArticleList, s *c.Search) {
-// 	res, err := c.GetNewsArticles()
-// 	if err != nil {
-// 		log.Error("Failed to fetch articles")
-// 	}
-// 	art.Articles = res.Results.Articles
-// 	art.Category = s.SearchKey
-// }
+}
 
-// func GetArticle(c echo.Context) error {
-// 	id, _ := strconv.Atoi(c.Param("id"))
-// 	return c.JSON(http.StatusOK, art.Articles[id])
-// }
 
-// GetAllArticles returns l
-func GetAllArticles(c echo.Context) error {
-	s := news.NewSearch("8ec886c4db984880889d4a9d8b79b942", "bitcoin")
+// MainNews returns articles for main page
+func (s Handler) MainNews(c echo.Context) error {
+	// s := news.NewSearch(newsapitoken, "business")
 
-	res, err := s.GetNewsArticles()
+	res, err := s.search.NewsHeadlines()
 	if err != nil {
 		log.Error("Failed to fetch articles")
 	}
 
-	//n := news.NewArticleList("coinnews", "crypto", res)
+	return c.JSON(http.StatusOK, res)
+}
 
-	//art.Articles = res.Results.Articles
+// BusinessNews returns l
+func (s Handler)BusinessNews(c echo.Context) error {
+
+	res, err := s.search.NewsArticles("business")
+	if err != nil {
+		log.Error("Failed to fetch articles")
+	}
 
 	return c.JSON(http.StatusOK, res)
 }
 
-// func UpdateArticle(c echo.Context) error {
-// 	u := new(Article)
-// 	if err := c.Bind(u); err != nil {
-// 		return err
-// 	}
-// 	id, _ := strconv.Atoi(c.Param("id"))
-// 	art.Articles[id].Title = u.Title
-// 	return c.JSON(http.StatusOK, art.Articles[id])
-// }
+// TechNews returns l
+func (s Handler)TechNews(c echo.Context) error {
 
-// func deleteArticle(c echo.Context) error {
-// 	id, _ := strconv.Atoi(c.Param("id"))
-// 	delete(art.Articles, id)
-	
-// 	//loop through all our items
-// 	for index, item := range ItemList {
-// 		// delete if item id matches
-// 		if item.ID == id {
-// 			ItemList = append(ItemList[:index], ItemList[index+1:]...)
-// 		}
-// 	}
-// 	return c.NoContent(http.StatusNoContent)
-// }
+	res, err := s.search.NewsArticles("technology")
+	if err != nil {
+		log.Error("Failed to fetch articles")
+	}
+
+	return c.JSON(http.StatusOK, res)
+}
+
+// TwitterNews returns list of general tweets
+func (s Handler)TwitterNews(c echo.Context) error {
+
+	res, err := s.twitterSearch.TwitterNews("#USA")
+	if err != nil {
+		log.Error("Failed to fetch articles")
+	}
+
+	return c.JSON(http.StatusOK, res)
+}
+
+// TwitterNewsBusiness returns list of post related to business 
+func (s Handler)TwitterNewsBusiness(c echo.Context) error {
+
+	res, err := s.twitterSearch.TwitterNews("#Business")
+	if err != nil {
+		log.Error("Failed to fetch articles")
+	}
+
+	return c.JSON(http.StatusOK, res)
+}
+
+// TwitterNewsTechnology returns list of post related to technology
+func (s Handler)TwitterNewsTechnology(c echo.Context) error {
+
+	res, err := s.twitterSearch.TwitterNews("#Technology")
+	if err != nil {
+		log.Error("Failed to fetch articles")
+	}
+
+	return c.JSON(http.StatusOK, res)
+}
