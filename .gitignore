@@ -1,1 +1,4 @@
 keys.sh
+news-ui/.DS_Store
+news-ui/node_modules
+news-ui/public/bundle.*
