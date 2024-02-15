@@ -1,13 +1,13 @@
 <script>
   import { onMount } from "svelte";
 
-  import PostForm from "../components/PostForm.svelte";
+  // import PostForm from "../components/PostForm.svelte";
 
   let postLimit = 6;
   let currentDate = new Date();
 
   const apiBaseUrl =
-    "http://localhost:1323";
+    "http://localhost:8080";
   let posts = [];
   let twposts = [];
   let editingPost = {
@@ -19,41 +19,26 @@
   onMount(async () => {
     const res = await fetch(apiBaseUrl + "/news/headlines");
     posts = await res.json();
-    const restwitter = await fetch(apiBaseUrl + "/news/twitter");
-    twposts = await restwitter.json();
+    // const restwitter = await fetch(apiBaseUrl + "/news/twitter");
+    // twposts = await restwitter.json();
   });
 
-  function addPost({ detail: post }) {
-    if (posts.find(p => p.id === post.id)) {
-      const index = posts.findIndex(p => p.id === post.id);
-      let postsUpdated = posts;
-      postsUpdated.splice(index, 1, post);
-      posts = postsUpdated;
-    } else posts = [post, ...posts];
+  // function addPost({ detail: post }) {
+  //   if (posts.find(p => p.id === post.id)) {
+  //     const index = posts.findIndex(p => p.id === post.id);
+  //     let postsUpdated = posts;
+  //     postsUpdated.splice(index, 1, post);
+  //     posts = postsUpdated;
+  //   } else posts = [post, ...posts];
 
-    editingPost = {
-      body: "",
-      title: "",
-      id: null
-    };
-  }
+  //   editingPost = {
+  //     body: "",
+  //     title: "",
+  //     id: null
+  //   };
+  // }
 
-  function editPost(post) {
-    editingPost = post;
-  }
-  function deletePost(id) {
-    if (confirm("Are you sure?")) {
-      fetch(`${apiBaseUrl}/post/${id}`, {
-        method: "DELETE"
-      })
-        .then(res => {
-          return res.json();
-        })
-        .then(() => {
-          posts = posts.filter(p => p.id !== id);
-        });
-    }
-  }
+
   function setLimit() {
     fetch(`${apiBaseUrl}/posts/${postLimit}`)
       .then(res => {
@@ -112,7 +97,7 @@
   <div class="col s8 m8 ">
   <div class="col-content">
   {#if posts.length === 0}
-    <h3>Loading posts...</h3>
+    <h3>Getting News Articles...</h3>
   {:else}
     {#each posts as post}
       <!-- <div class="row">  -->
@@ -142,16 +127,16 @@
 
   <div class="col s3 m3">
   <div class="col-content">
-  <div class="row">
+  <!-- <div class="row"> -->
   <!-- <h5 class="blue-text">Top Tweets</h5> -->
-      <div class="card horizontal blue">
+      <!-- <div class="card horizontal blue">
         <div class="card-stacked">
             <div class="card-content">
               <h7 class="center white-text bold">Top Tweets</h7>
             </div>
         </div>
-      </div>
-  </div>
+      </div> -->
+  <!-- </div> -->
 
   {#each twposts as post}
       <!-- <div class="row">  -->

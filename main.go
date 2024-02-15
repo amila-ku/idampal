@@ -24,7 +24,7 @@ func main() {
 
 	// CORS
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: []string{"http://newsapi.local:5000", "http://localhost:8081", "http://localhost:5000"},
+		AllowOrigins: []string{"http://newsapi.local:5000", "http://localhost:8081", "http://localhost:5555"},
 		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
 	}))
 
@@ -35,9 +35,9 @@ func main() {
 	e.GET("/news/headlines", s.MainNews)
 	e.GET("/news/business", s.BusinessNews)
 	e.GET("/news/technology", s.TechNews)
-	e.GET("/news/twitter", s.TwitterNews)
-	e.GET("/news/twitter/business", s.TwitterNewsBusiness)
-	e.GET("/news/twitter/technology", s.TwitterNewsTechnology)
+	// e.GET("/news/twitter", s.TwitterNews)
+	// e.GET("/news/twitter/business", s.TwitterNewsBusiness)
+	// e.GET("/news/twitter/technology", s.TwitterNewsTechnology)
 
 
 	// // Static
@@ -47,6 +47,6 @@ func main() {
 	// e.File("/", "templates/index.html")
 
 	// Start server
-	e.Logger.Fatal(e.Start(":1323"))
+	e.Logger.Fatal(e.Start(":8080"))
 
 }

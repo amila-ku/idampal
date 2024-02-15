@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
 
   const apiBaseUrl =
-    "http://localhost:1323";
+    "http://localhost:8080";
   let businessarticles = [];
   let twarticles = [];
   let editingbarticle = {
@@ -15,8 +15,8 @@
     const res = await fetch(apiBaseUrl + "/news/business");
     businessarticles = await res.json();
 
-    const restwitter = await fetch(apiBaseUrl + "/news/twitter/business");
-    twarticles = await restwitter.json();
+    // const restwitter = await fetch(apiBaseUrl + "/news/twitter/business");
+    // twarticles = await restwitter.json();
   });
   
 </script>
@@ -62,7 +62,7 @@
   <div class="col s8 m8 ">
   <div class="col-content">
   {#if businessarticles.length === 0}
-    <h3>Loading businessarticles...</h3>
+    <h3>Getting Business Articles...</h3>
   {:else}
     {#each businessarticles as barticle}
       <!-- <div class="row">  -->
