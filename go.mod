@@ -10,9 +10,9 @@ require (
 	github.com/dustin/go-jsonpointer v0.0.0-20160814072949-ba0abeacc3dc // indirect
 	github.com/dustin/gojson v0.0.0-20160307161227-2e71ec9dd5ad // indirect
 	github.com/garyburd/go-oauth v0.0.0-20180319155456-bca2e7f09a17 // indirect
-	github.com/google/uuid v1.1.1
+	github.com/google/uuid v1.6.0
 	github.com/labstack/echo v3.3.10+incompatible
-	github.com/labstack/gommon v0.3.0
-	github.com/valyala/fasttemplate v1.1.0 // indirect
-	golang.org/x/text v0.3.8 // indirect
+	github.com/labstack/gommon v0.4.2
+	golang.org/x/net v0.21.0 // indirect
+	gopkg.in/yaml.v2 v2.2.2 // indirect
 )
