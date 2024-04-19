@@ -13,6 +13,5 @@ require (
 	github.com/google/uuid v1.6.0
 	github.com/labstack/echo v3.3.10+incompatible
 	github.com/labstack/gommon v0.4.2
-	golang.org/x/net v0.21.0 // indirect
-	gopkg.in/yaml.v2 v2.2.2 // indirect
+	golang.org/x/net v0.23.0 // indirect
 )
